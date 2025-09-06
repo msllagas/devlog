@@ -1,20 +1,24 @@
 {
-    "name": "mandy/devlog",
-    "description": "A simple blog system built with vanilla PHP + MySQL",
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        },
-      "files": [
-        "app/Utilities/helpers.php"
-      ]
+  "name": "mandy/devlog",
+  "description": "A simple blog system built with vanilla PHP + MySQL",
+  "require": {
+    "php": "^8.3",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
     },
-    "authors": [
-        {
-            "name": "msllagas"
-        }
-    ],
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.87"
+    "files": [
+      "app/Utilities/helpers.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "msllagas"
     }
+  ],
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.87"
+  }
 }
