@@ -49,16 +49,7 @@ if (!function_exists('abort')) {
     }
 }
 
-
 if (!function_exists('summary')) {
-    /**
-     * Generate a short summary from content.
-     *
-     * @param string $content The full text
-     * @param int $limit Maximum number of characters
-     * @param bool $ellipsis Whether to append "..." if truncated
-     * @return string
-     */
     function summary(string $content, int $limit = 80, bool $ellipsis = true): string
     {
         $cleanContent = strip_tags($content);
@@ -69,5 +60,11 @@ if (!function_exists('summary')) {
         $excerpt = substr($cleanContent, 0, $limit);
 
         return $ellipsis ? $excerpt . '...' : $excerpt;
+    }
+}
+
+if (!function_exists('old')) {
+    function old(string $key, $default = '') {
+        return htmlspecialchars($_POST[$key] ?? $default);
     }
 }
