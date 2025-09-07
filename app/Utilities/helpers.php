@@ -33,3 +33,18 @@ if (!function_exists('env')) {
         return $value !== false ? $value : $default;
     }
 }
+
+if (!function_exists('abort')) {
+    function abort(int $code = 404, string $message = null): void
+    {
+        http_response_code($code);
+
+        $view = __DIR__ . "/../../views/{$code}.php";
+
+        if (file_exists($view)) {
+            require $view;
+        }
+
+        exit;
+    }
+}
