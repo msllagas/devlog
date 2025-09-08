@@ -68,3 +68,24 @@ if (!function_exists('old')) {
         return htmlspecialchars($_POST[$key] ?? $default);
     }
 }
+
+if (!function_exists('base_path')) {
+    function base_path(string $path = ''): string
+    {
+        // go 2 directories up from app/Utilities → project root
+        $base = dirname(__DIR__, 2);
+
+        return $path ? $base . '/' . ltrim($path, '/') : $base;
+    }
+}
+
+if (!function_exists('view')) {
+      function view(string $path, array $data = []): void
+    {
+        $path = str_replace('.', '/', $path);
+
+        extract($data);
+
+        require base_path("views/{$path}.view.php");
+    }
+}
