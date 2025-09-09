@@ -1,5 +1,7 @@
 <?php
 
+use App\Core\Database;
+
 if (! function_exists('dd')) {
     function dd(...$vars) {
         echo "<pre>";
@@ -89,3 +91,18 @@ if (!function_exists('view')) {
         require base_path("views/{$path}.view.php");
     }
 }
+
+if (!function_exists('db')) {
+    function db(): Database
+    {
+        static $instance;
+
+        if ($instance === null) {
+            $config = require base_path('config/database.php');
+            $instance = new Database($config);
+        }
+
+        return $instance;
+    }
+}
+
