@@ -11,7 +11,9 @@
             </div>
             <div class="hidden md:block">
                 <div class="ml-4 flex items-center md:ml-6">
-
+                    <a href="/posts/create"
+                       class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Create Post</a>
+<!--                    TODO: hide this auth-related buttons if there is authenticated user-->
                     <a href="/login"
                        class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Login</a>
                     <a href="/signup"
