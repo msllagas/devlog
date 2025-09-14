@@ -1,16 +1,19 @@
 <?php
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+use App\Controllers\Auth\LoginController;
+use App\Controllers\Auth\SignUpController;
+use App\Controllers\Posts\PostController;
+use App\Core\Router;
 
-$routes = [
-    '/' => 'app/Controllers/index.php',
-    '/post' => 'app/Controllers/post.php',
-    '/login' => 'app/Controllers/Auth/login.php',
-    '/signup' => 'app/Controllers/Auth/signup.php',
-];
+$router = new Router();
 
-if (array_key_exists($uri, $routes)) {
-    require $routes[$uri];
-} else {
-    require "views/404.php";
-}
+// Auth Controller
+$router->get('/login', LoginController::class);
+$router->get('/signup', SignUpController::class);
+
+// Post Controller
+$router->get('/', [PostController::class, 'index']);
+$router->get('/posts/{username}/{slug}', [PostController::class, 'show']);
+$router->get('/posts/create', [PostController::class, 'create']);
+$router->post('/posts', [PostController::class, 'store']);
+return $router;
