@@ -6,34 +6,31 @@ class Router
 {
     protected array $routes = [];
 
-    public function add($method, string $uri, $action): self
+    public function get(string $uri, $action): Router
     {
-        $this->routes[] = [
-            'method' => $method,
-            'uri' => $uri,
-            'action' => $action
-        ];
-        return $this;
+        return $this->addRoute('GET', $uri, $action);
     }
 
-    public function get(string $uri, $action): void
+    public function post(string $uri, $action): Router
+    {
+        return $this->addRoute('POST', $uri, $action);
+    }
+
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param $action
+     * @return Router
+     */
+    public function addRoute(string $method, string $uri, $action): Router
     {
         $pattern = preg_replace('#\{[^/]+\}#', '([^/]+)', $uri);
         $pattern = "#^" . $pattern . "$#";
-
-        $this->routes['GET'][] = [
+        $this->routes[$method][] = [
             'pattern' => $pattern,
             'action' => $action,
         ];
-    }
-
-    public function post(string $uri, $action): void
-    {   $pattern = preg_replace('#\{[^/]+\}#', '([^/]+)', $uri);
-        $pattern = "#^" . $pattern . "$#";
-        $this->routes['POST'][] = [
-            'pattern' => $pattern,
-            'action' => $action,
-        ];
+        return $this;
     }
 
     /**
