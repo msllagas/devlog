@@ -8,7 +8,8 @@ use App\Core\Router;
 $router = new Router();
 
 // Auth Controller
-$router->get('/login', LoginController::class);
+$router->get('/login', [LoginController::class, 'index']);
+$router->post('/login', [LoginController::class, 'store']);
 $router->get('/signup', [SignUpController::class, 'index']);
 $router->post('/signup', [SignUpController::class, 'store']);
 
