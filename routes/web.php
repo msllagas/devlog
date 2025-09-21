@@ -9,7 +9,8 @@ $router = new Router();
 
 // Auth Controller
 $router->get('/login', LoginController::class);
-$router->get('/signup', SignUpController::class);
+$router->get('/signup', [SignUpController::class, 'index']);
+$router->post('/signup', [SignUpController::class, 'store']);
 
 // Post Controller
 $router->get('/', [PostController::class, 'index']);
