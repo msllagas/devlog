@@ -7,7 +7,9 @@
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
-    <title>DevLog</title>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <title><?= $title ?? 'DevLog' ?></title>
 </head>
 <body class="h-full">
 <div class="min-h-full">
