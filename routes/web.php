@@ -3,6 +3,7 @@
 use App\Controllers\Auth\LoginController;
 use App\Controllers\Auth\SignUpController;
 use App\Controllers\Posts\PostController;
+use App\Core\Middleware\Auth;
 use App\Core\Router;
 
 $router = new Router();
@@ -16,6 +17,6 @@ $router->post('/signup', [SignUpController::class, 'store']);
 // Post Controller
 $router->get('/', [PostController::class, 'index']);
 $router->get('/posts/{username}/{slug}', [PostController::class, 'show']);
-$router->get('/posts/create', [PostController::class, 'create']);
+$router->get('/posts/create', [PostController::class, 'create'])->middleware(Auth::class);
 $router->post('/posts', [PostController::class, 'store']);
 return $router;
