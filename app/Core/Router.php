@@ -4,14 +4,17 @@ namespace App\Core;
 
 class Router
 {
+    /**
+     * @var Route[]
+     */
     protected array $routes = [];
 
-    public function get(string $uri, $action): Router
+    public function get(string $uri, $action): Route
     {
         return $this->addRoute('GET', $uri, $action);
     }
 
-    public function post(string $uri, $action): Router
+    public function post(string $uri, $action): Route
     {
         return $this->addRoute('POST', $uri, $action);
     }
@@ -20,17 +23,18 @@ class Router
      * @param string $method
      * @param string $uri
      * @param $action
-     * @return Router
+     * @return Route
      */
-    public function addRoute(string $method, string $uri, $action): Router
+    public function addRoute(string $method, string $uri, $action): Route
     {
         $pattern = preg_replace('#\{[^/]+\}#', '([^/]+)', $uri);
         $pattern = "#^" . $pattern . "$#";
-        $this->routes[$method][] = [
-            'pattern' => $pattern,
-            'action' => $action,
-        ];
-        return $this;
+
+        $route = new Route($method, $pattern, $action);
+
+        $this->routes[$method][] = $route;
+
+        return $route;
     }
 
     /**
@@ -39,12 +43,27 @@ class Router
     public function dispatch(string $method, string $uri)
     {
         foreach ($this->routes[$method] as $route) {
-            if (preg_match($route['pattern'], $uri, $matches)) {
+            if (preg_match($route->pattern, $uri, $matches)) {
                 array_shift($matches);
-                return $this->callAction($route['action'], $matches);
+                return $this->runMiddleware($route->middleware, function () use ($route, $matches) {
+                    return $this->callAction($route->action, $matches);
+                });
             }
         }
         abort();
+    }
+
+    public function runMiddleware(array $middleware, callable $next)
+    {
+        $pipeline = array_reduce(
+            array_reverse($middleware),
+            function ($next, $middleware) {
+                $middleware = new $middleware();
+                return $middleware->handle($next);
+            },
+            $next
+        );
+        return $pipeline();
     }
 
     /**
