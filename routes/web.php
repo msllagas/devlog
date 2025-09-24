@@ -4,15 +4,16 @@ use App\Controllers\Auth\LoginController;
 use App\Controllers\Auth\SignUpController;
 use App\Controllers\Posts\PostController;
 use App\Core\Middleware\Auth;
+use App\Core\Middleware\Guest;
 use App\Core\Router;
 
 $router = new Router();
 
 // Auth Controller
-$router->get('/login', [LoginController::class, 'index']);
-$router->post('/login', [LoginController::class, 'store']);
-$router->get('/signup', [SignUpController::class, 'index']);
-$router->post('/signup', [SignUpController::class, 'store']);
+$router->get('/login', [LoginController::class, 'index'])->middleware(Guest::class);
+$router->post('/login', [LoginController::class, 'store'])->middleware(Guest::class);
+$router->get('/signup', [SignUpController::class, 'index'])->middleware(Guest::class);
+$router->post('/signup', [SignUpController::class, 'store'])->middleware(Guest::class);
 
 // Post Controller
 $router->get('/', [PostController::class, 'index']);
