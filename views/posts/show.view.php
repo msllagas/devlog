@@ -36,11 +36,11 @@
 
     const editor = document.querySelector('#post-content');
     editor.querySelectorAll('h1').forEach(h1 => {
-        h1.classList.add('text-2xl', 'font-bold', 'mb-4'); // your Tailwind classes
+        h1.classList.add('text-2xl', 'mb-4');
     });
 
     editor.querySelectorAll('h2').forEach(h2 => {
-        h2.classList.add('text-xl', 'font-semibold', 'mb-3');
+        h2.classList.add('text-xl', 'mb-3');
     });
 
     editor.querySelectorAll('h3').forEach(h3 => {
@@ -50,6 +50,10 @@
     editor.querySelectorAll('p').forEach(p => {
         p.classList.add('text-sm');
     });
+
+    editor.querySelectorAll('strong').forEach(strong => {
+        strong.classList.add('font-semibold');
+    })
 </script>
 
 <?php require base_path('views/partials/foot.php'); ?>
