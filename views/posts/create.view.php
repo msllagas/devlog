@@ -3,7 +3,7 @@
 
 <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <form method="POST" action="/posts">
+        <form id="postForm" method="POST" action="/posts">
             <div class="space-y-12">
                 <div class="pb-8">
                     <h2 class="text-base/7 font-bold text-gray-900">Write a New Post</h2>
@@ -60,7 +60,7 @@
         placeholder: 'Write your post content here...'
     });
 
-    const form = document.querySelector('form');
+    const form = document.getElementById('postForm');
     form.addEventListener('submit', function (e) {
         document.getElementById('content').value = JSON.stringify(quill.getContents());
     });
