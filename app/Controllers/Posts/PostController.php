@@ -11,14 +11,14 @@ class PostController
     {
         $header = "Welcome To DevLog";
 
-        $posts = db()->query("SELECT posts.*, users.username AS author_name
+        $posts = db()->query("SELECT posts.*, users.username, users.name
                                     FROM posts
                                     JOIN users ON posts.user_id = users.id
                                     ORDER BY posts.published_at DESC")
             ->fetchAll();
 
         foreach ($posts as &$post) {
-            $post['url'] = "posts/" . urlencode($post['author_name']) . "/" . urlencode($post['slug']);
+            $post['url'] = "posts/" . urlencode($post['username']) . "/" . urlencode($post['slug']);
 
             if (empty($post['summary'])) {
                 $post['summary'] = summary($post['content']);
@@ -102,7 +102,7 @@ class PostController
                     [
                         ':title' => $title,
                         ':content' => $content,
-                        ':user_id' => 1,
+                        ':user_id' => $_SESSION['user']['id'],
                         ':slug' => $slug,
                     ]
                 );
