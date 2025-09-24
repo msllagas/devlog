@@ -17,10 +17,12 @@
                            class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
                             Create Post
                         </a>
-                        <a href="/logout"
-                           class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
-                            Logout
-                        </a>
+                        <form method="POST" action="/logout" style="display:inline;">
+                            <button type="submit"
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
+                                Logout
+                            </button>
+                        </form>
                     <?php else: ?>
                         <!-- Guest -->
                         <a href="/login"
