@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Auth\AuthController;
 use App\Controllers\Auth\LoginController;
 use App\Controllers\Auth\SignUpController;
 use App\Controllers\Posts\PostController;
@@ -14,6 +15,7 @@ $router->get('/login', [LoginController::class, 'index'])->middleware(Guest::cla
 $router->post('/login', [LoginController::class, 'store'])->middleware(Guest::class);
 $router->get('/signup', [SignUpController::class, 'index'])->middleware(Guest::class);
 $router->post('/signup', [SignUpController::class, 'store'])->middleware(Guest::class);
+$router->post('/logout', [AuthController::class, 'logout'])->middleware(Auth::class);
 
 // Post Controller
 $router->get('/', [PostController::class, 'index']);
